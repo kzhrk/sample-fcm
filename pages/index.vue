@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from '@nuxtjs/composition-api';
-import { getMessaging, getToken } from 'firebase/messaging';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -26,7 +26,16 @@ export default defineComponent({
           alert(err)
           console.log(err);
         });
-        queryToken.value = token!;
+
+        if (token) {
+          queryToken.value = token;
+        }
+
+        onMessage(messaging, (payload) => {
+          console.log('get message');
+          console.log('Message received. ', payload);
+          // ...
+        });
       }
     })
 

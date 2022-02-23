@@ -54,7 +54,7 @@ export default {
     ]
   ],
   messaging: {
-    createServiceWorker: false,
+    createServiceWorker: true,
     actions: [
       {
         action: 'action',
