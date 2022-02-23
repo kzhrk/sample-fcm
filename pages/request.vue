@@ -8,10 +8,10 @@
 import axios from 'axios';
 
 export default {
-  asyncData({ query }: any) {
+  async asyncData({ query }: any) {
     const token = query.token;
 
-    axios({
+    await axios({
       method: 'post',
       url: 'https://fcm.googleapis.com/fcm/send',
       headers: {
