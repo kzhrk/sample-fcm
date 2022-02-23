@@ -1,9 +1,8 @@
 // Push通知を受け取ると呼ばれる
 self.addEventListener('push', function (event) {
   // メッセージを表示する
-  const name = ((((event || {}).data || {}).json() || {}).data || {}).name || 'ふくろう';
   event.waitUntil(
-    self.registration.showNotification(`${name}さんから`, {
+    self.registration.showNotification('Push通知のテスト送信', {
       'body': 'メッセージが届いています。',
     })
   );

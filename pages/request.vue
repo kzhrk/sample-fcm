@@ -16,7 +16,7 @@ export default {
       url: 'https://fcm.googleapis.com/fcm/send',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'key=AAAArw5ihSI:APA91bEXIW08-cF9Gk3v3WsfBkKRZhCgftxVyAVc30PvB5boqXuzK-TsGRcvOfjbFMX1t9rzTS-0qcdYWtiu-0Se9EOieXkGo7TThCDlfTe5v05jrOTixTJQnb2HwGae9l_MyIPmSgOE'
+        'Authorization': `key=${process.env.SERVER_KEY}`
       },
       data: {
         notification: {
