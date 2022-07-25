@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="onClick">Push通知テスト</button>
+    <button :disabled="queryToken === ''" @click="onClick">Push通知テスト</button>
   </div>
 </template>
 
@@ -23,7 +23,6 @@ export default defineComponent({
             vapidKey: 'BFy5Ht-q_xjlzOO8rdJBkNBzgP6-FyvgGRrF5pZMxy_iAHP06BQ-wCQHb-U-d50SoELPGUxiGFQ41jC1ItjpJg8'
           }
         ).catch(err => {
-          alert(err)
           console.log(err);
         });
 
@@ -44,6 +43,7 @@ export default defineComponent({
     }
 
     return {
+      queryToken,
       onClick
     }
   }
