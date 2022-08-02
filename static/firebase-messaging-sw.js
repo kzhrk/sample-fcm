@@ -1,10 +1,12 @@
 // Push通知を受け取ると呼ばれる
 self.addEventListener('push', function (event) {
+  console.log(event);
   // メッセージを表示する
   event.waitUntil(
     clients.matchAll({
       type: 'window'
     }).then(clientList => {
+      console.log(clientList);
       const client = clientList.find(c => {
         console.log(c.url);
         return /kakari-pharmacy\.medpeer\.jp/.test(c.url);
@@ -16,10 +18,9 @@ self.addEventListener('push', function (event) {
           type: 'PLAY_AUDIO',
           audioType: 'new-message'
         })
-        return
       }
 
-      self.registration.showNotification('Push通知のテスト送信', {
+      return self.registration.showNotification('Push通知のテスト送信', {
         'body': 'メッセージが届いています。',
       })
     })
