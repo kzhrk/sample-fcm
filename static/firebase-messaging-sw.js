@@ -5,7 +5,7 @@ self.addEventListener('push', function (event) {
   event.waitUntil(
     self.clients.matchAll({
       type: 'window',
-      includeUncontrolled: false
+      includeUncontrolled: true
     }).then(clientList => {
       console.log(clientList);
       const client = clientList[0];
@@ -29,7 +29,7 @@ self.addEventListener('notificationclick', function (event) {
   const url = 'https://example.com/';
   event.notification.close(); // Android needs explicit close.
   event.waitUntil(
-    self.clients.matchAll({ type: 'window', includeUncontrolled: false }).then(windowClients => {
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
       // Check if there is already a window/tab open with the target URL
       for (let i = 0; i < windowClients.length; i++) {
         const client = windowClients[i];
