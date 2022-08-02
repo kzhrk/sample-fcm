@@ -7,6 +7,7 @@ self.addEventListener('push', function (event) {
       type: 'window',
       includeUncontrolled: true
     }).then(clientList => {
+      console.log(self.clients);
       console.log(clientList);
       const client = clientList[0];
 
