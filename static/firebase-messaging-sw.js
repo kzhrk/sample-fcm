@@ -2,8 +2,26 @@
 self.addEventListener('push', function (event) {
   // メッセージを表示する
   event.waitUntil(
-    self.registration.showNotification('Push通知のテスト送信', {
-      'body': 'メッセージが届いています。',
+    clients.matchAll({
+      type: 'window'
+    }).then(clientList => {
+      const client = clientList.find(c => {
+        console.log(c.url);
+        return /kakari-pharmacy\.medpeer\.jp/.test(c.url);
+      });
+
+      if (client) {
+        client.focus();
+        client.postMessage({
+          type: 'PLAY_AUDIO',
+          audioType: 'new-message'
+        })
+        return
+      }
+
+      self.registration.showNotification('Push通知のテスト送信', {
+        'body': 'メッセージが届いています。',
+      })
     })
   );
 });
