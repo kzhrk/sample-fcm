@@ -3,14 +3,12 @@ self.addEventListener('push', function (event) {
   console.log(event);
   // メッセージを表示する
   event.waitUntil(
-    clients.matchAll({
-      type: 'window'
+    self.clients.matchAll({
+      type: 'window',
+      includeUncontrolled: false
     }).then(clientList => {
       console.log(clientList);
-      const client = clientList.find(c => {
-        console.log(c.url);
-        return /kakari-pharmacy\.medpeer\.jp/.test(c.url);
-      });
+      const client = clientList[0];
 
       if (client) {
         client.focus();
@@ -31,7 +29,7 @@ self.addEventListener('notificationclick', function (event) {
   const url = 'https://example.com/';
   event.notification.close(); // Android needs explicit close.
   event.waitUntil(
-    clients.matchAll({ type: 'window' }).then(windowClients => {
+    self.clients.matchAll({ type: 'window', includeUncontrolled: false }).then(windowClients => {
       // Check if there is already a window/tab open with the target URL
       for (let i = 0; i < windowClients.length; i++) {
         const client = windowClients[i];
