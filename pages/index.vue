@@ -1,6 +1,7 @@
 <template>
   <div>
     <button :disabled="queryToken === ''" @click="onClick">Push通知テスト</button>
+    <button @click="onClickPermission">Push通知を許可</button>
   </div>
 </template>
 
@@ -42,9 +43,32 @@ export default defineComponent({
       window.open(`/request?token=${queryToken.value}`)
     }
 
+    async function onClickPermission() {
+      const messaging = getMessaging();
+        const token = await getToken(
+          messaging,
+          {
+            vapidKey: 'BFy5Ht-q_xjlzOO8rdJBkNBzgP6-FyvgGRrF5pZMxy_iAHP06BQ-wCQHb-U-d50SoELPGUxiGFQ41jC1ItjpJg8'
+          }
+        ).catch(err => {
+          console.log(err);
+        });
+
+        if (token) {
+          queryToken.value = token;
+        }
+
+        onMessage(messaging, (payload) => {
+          console.log('get message');
+          console.log('Message received. ', payload);
+          // ...
+        });
+    }
+
     return {
       queryToken,
-      onClick
+      onClick,
+      onClickPermission
     }
   }
 })
